@@ -1,10 +1,11 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-3xl">You're in a room!</p>
 
+<%# renders room partial %>
 <%= render @room %>
 
-<div>
-  <%= link_to "Edit this room", edit_room_path(@room) %> |
-  <%= link_to "Leave Room", root_path %>
+<div class="flex space-x-4 mt-8">
+  <%= link_to "Edit this room", edit_room_path(@room), class: "cursor-pointer p-2 px-4 bg-blue-300 rounded" %>
+  <%= link_to "Leave Room", root_path, class: "cursor-pointer p-2 px-4 bg-blue-300 rounded" %>
 
-  <%= button_to "Destroy this room", @room, method: :delete %>
+  <%= button_to "Destroy this room", @room, method: :delete, class: "cursor-pointer p-2 px-4 bg-red-300 rounded" %>
 </div>
