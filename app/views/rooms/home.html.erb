@@ -1,0 +1,10 @@
+<div>hello</div>
+
+<%= form_with url: rooms_get_path, method: "get" do |form| %>
+  <%= form.text_field :room_code %>
+  <%= form.submit "Enter Room" %>
+<% end %>
+
+<%= form_with url: rooms_path do |form| %>
+   <%= form.submit "New Room" %>
+<% end %>

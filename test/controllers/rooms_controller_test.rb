@@ -43,6 +43,15 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
       delete room_url(@room)
     end
 
-    assert_redirected_to rooms_url
+    assert_redirected_to root_path
+  end
+
+  test "should redirect to valid room" do
+    get rooms_get_path, params: { room_code: "asdf" }
+    assert_redirected_to root_path
+
+    room = Room.create()
+    get rooms_get_path, params: { room_code: room.code }
+    assert_redirected_to room_url(room)
   end
 end

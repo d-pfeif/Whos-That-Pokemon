@@ -5,9 +5,27 @@ class RoomsController < ApplicationController
   def index
     @rooms = Room.all
   end
+  
+  def home
+  end
 
   # GET /rooms/1 or /rooms/1.json
   def show
+  end
+  
+  def get
+    room = Room.find_by(code: get_room_params[:room_code])
+    if room.present?
+      respond_to do |format|
+        format.html { redirect_to room_url(room), notice: "Successfully entered room." }
+        format.json { render json: { message: "Successfully entered room." }, status: 200 }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: "Room is unavailable." }
+        format.json { render json: { message: "Room is unavailable." }, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /rooms/new
@@ -52,7 +70,7 @@ class RoomsController < ApplicationController
     @room.destroy
 
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: "Room was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Room was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -66,5 +84,10 @@ class RoomsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def room_params
       params.fetch(:room, {})
+    end
+   
+    # Only allow a list of trusted parameters through.
+    def get_room_params
+      params.permit(:room_code)
     end
 end
